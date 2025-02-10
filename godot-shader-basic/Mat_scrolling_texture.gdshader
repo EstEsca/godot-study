@@ -18,9 +18,10 @@ void fragment() {
 	// Called for every pixel the material is visible on.
 	
 	//vec2 scaled_uv = UV * vec2(repeat_x, repeat_y);
-	vec2 scaled_uv = fract(UV * vec2(repeat_x, repeat_y) + offset_uv);
+	vec2 scaled_uv = fract(UV * vec2(repeat_x, repeat_y)  + offset_uv);
 	vec2 texelSize = vec2(1.0) / vec2(textureSize(TEXTURE, 4));
 	vec2 snappedUV = round(scaled_uv / texelSize) * texelSize;
+	snappedUV = round(scaled_uv / texelSize) * texelSize;
 	
 	COLOR = texture(TEXTURE, scaled_uv) * tint;
 	COLOR = texture(TEXTURE, snappedUV) * tint;
