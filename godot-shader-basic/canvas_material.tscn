@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt2miow4x6gth"]
+
+[ext_resource type="Material" uid="uid://c0uuyni6cwrtt" path="res://Mat_scrolling_texture.tres" id="1_jjd01"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7jim0"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sc03d"]
+seamless = true
+noise = SubResource("FastNoiseLite_7jim0")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = ExtResource("1_jjd01")
+offset_right = 1162.0
+offset_bottom = 654.0
+texture = SubResource("NoiseTexture2D_sc03d")
+stretch_mode = 6
