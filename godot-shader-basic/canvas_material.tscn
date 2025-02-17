@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt2miow4x6gth"]
+[gd_scene load_steps=5 format=3 uid="uid://dt2miow4x6gth"]
 
 [ext_resource type="Material" uid="uid://c0uuyni6cwrtt" path="res://Mat_scrolling_texture.tres" id="1_jjd01"]
+[ext_resource type="Material" uid="uid://2uhr0k4tu2nf" path="res://Mat_Shading_Exp_01.tres" id="2_6kt7s"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7jim0"]
 
@@ -14,5 +15,13 @@ noise = SubResource("FastNoiseLite_7jim0")
 material = ExtResource("1_jjd01")
 offset_right = 1162.0
 offset_bottom = 654.0
+texture = SubResource("NoiseTexture2D_sc03d")
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+material = ExtResource("2_6kt7s")
+offset_top = 718.0
+offset_right = 1162.0
+offset_bottom = 1841.0
 texture = SubResource("NoiseTexture2D_sc03d")
 stretch_mode = 6

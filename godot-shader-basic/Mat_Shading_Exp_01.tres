@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://2uhr0k4tu2nf"]
+
+[ext_resource type="Shader" path="res://Mat_Masking.gdshader" id="1_a3342"]
+[ext_resource type="Texture2D" uid="uid://dwu4tfj36a1dt" path="res://icon.svg" id="2_c33cc"]
+
+[sub_resource type="Gradient" id="Gradient_66aqj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hxiet"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xrxjw"]
+color_ramp = SubResource("Gradient_66aqj")
+noise = SubResource("FastNoiseLite_hxiet")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y2q16"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hgogo"]
+seamless = true
+noise = SubResource("FastNoiseLite_y2q16")
+
+[resource]
+shader = ExtResource("1_a3342")
+shader_parameter/flow_scroll = Vector2(0.5, 0.2)
+shader_parameter/flow_amount = 0.4
+shader_parameter/dissolve_amount = 1.0
+shader_parameter/mask_edge_min = 0.4
+shader_parameter/mask_edge_max = 0.5
+shader_parameter/tex = ExtResource("2_c33cc")
+shader_parameter/tex_flow = SubResource("NoiseTexture2D_hgogo")
+shader_parameter/tex_dissolve = SubResource("NoiseTexture2D_xrxjw")
