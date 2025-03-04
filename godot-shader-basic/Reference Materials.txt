@@ -1,11 +1,15 @@
 [To do]
 
 [In Progress]
-https://www.youtube.com/watch?v=cObwzagwgmA
-- Texture Sampling, tiling and 
+
 
 [Skipped]
 
 [Done]
+https://www.youtube.com/watch?v=cObwzagwgmA
+- Texture Sampling, tiling and
 
+
+
+ 
 ---Milestone #1 : 10 of Shader Bits

@@ -1,0 +1,84 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://d3lt16gy0v52"]
+
+[ext_resource type="Texture2D" uid="uid://dwu4tfj36a1dt" path="res://icon.svg" id="1_52p80"]
+
+[sub_resource type="Shader" id="Shader_iw0gv"]
+code = "shader_type canvas_item;
+
+//uniform sampler2D mask;
+uniform sampler2D tex :
+		repeat_enable;
+uniform sampler2D tex_flow :
+		repeat_enable;
+uniform sampler2D tex_dissolve;
+
+uniform vec2 flow_scroll = vec2(0, 0);
+uniform float flow_amount : hint_range(-1, 1, 0.1) = float(0);
+uniform float dissolve_amount : hint_range(-1, 1, 0.1) = float(0);
+
+uniform float mask_edge_min : hint_range(0, 1, 0.05) = float(0.4) ;
+uniform float mask_edge_max : hint_range(0, 1, 0.05) = float(0.6) ;
+
+void vertex() {
+	UV = UV;
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec2 mask_uv = UV * float(PI);
+	float mask = sin(mask_uv.r) * sin(mask_uv.g);
+	mask = smoothstep(mask_edge_min, mask_edge_max, mask);
+	
+	//COLOR = texture(TEXTURE, base_uv);
+	
+	vec2 flow_uv = base_uv + TIME * flow_scroll;
+	vec2 flow = texture(tex_flow, flow_uv).rg;
+	flow += vec2(-0.5);
+	
+	base_uv = UV + flow_amount * flow;
+	/*
+	float polar_base_uv = UV;
+	polar_base_uv -= 0.5;
+	polar_base_uv
+	*/
+	
+	float dissolve = dissolve_amount + texture(tex_dissolve, UV).r;
+	dissolve = clamp(dissolve, 0, 1);
+	mask *= dissolve;
+	
+	vec4 tex_diffuse = texture(tex, base_uv);
+	
+	COLOR = tex_diffuse;
+	COLOR *= mask;
+	
+	//COLOR = texture(tex, UV);
+	
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_66aqj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hxiet"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xrxjw"]
+color_ramp = SubResource("Gradient_66aqj")
+noise = SubResource("FastNoiseLite_hxiet")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y2q16"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hgogo"]
+seamless = true
+noise = SubResource("FastNoiseLite_y2q16")
+
+[resource]
+shader = SubResource("Shader_iw0gv")
+shader_parameter/flow_scroll = Vector2(1, 1)
+shader_parameter/flow_amount = 1.49012e-08
+shader_parameter/dissolve_amount = 1.0
+shader_parameter/mask_edge_min = 0.0
+shader_parameter/mask_edge_max = 0.45
+shader_parameter/tex = ExtResource("1_52p80")
+shader_parameter/tex_flow = SubResource("NoiseTexture2D_hgogo")
+shader_parameter/tex_dissolve = SubResource("NoiseTexture2D_xrxjw")

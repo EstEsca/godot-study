@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://domleorenyey2"]
+
+[ext_resource type="Material" uid="uid://clc3c82ubcvvl" path="res://3D Water Scene.tres" id="1_d4p3c"]
+[ext_resource type="Shader" path="res://3D Water Scene Ambient.gdshader" id="2_4imv1"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pjtkc"]
+material = ExtResource("1_d4p3c")
+size = Vector2(8, 4)
+subdivide_width = 50
+subdivide_depth = 50
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xhxva"]
+noise_type = 2
+frequency = 0.0158
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8eqhw"]
+width = 2048
+height = 2048
+seamless = true
+seamless_blend_skirt = 0.19
+normalize = false
+noise = SubResource("FastNoiseLite_xhxva")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_go7s2"]
+render_priority = 0
+shader = ExtResource("2_4imv1")
+shader_parameter/tex = SubResource("NoiseTexture2D_8eqhw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_11gca"]
+material = SubResource("ShaderMaterial_go7s2")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WaterPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1622, -0.0140839, 0.0116611)
+mesh = SubResource("PlaneMesh_pjtkc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.799034, -0.338493, -0.496957, 0.601285, 0.449816, 0.660395, 0, -0.826492, 0.562949, 0, 0.589936, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(10.6636, 0, 0, 0, 10.6636, 0, 0, 0, 10.6636, -0.0605541, -2.89594, -0.254234)
+mesh = SubResource("PlaneMesh_11gca")

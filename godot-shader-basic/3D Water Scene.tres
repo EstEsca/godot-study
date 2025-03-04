@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://clc3c82ubcvvl"]
+
+[ext_resource type="Shader" path="res://3D Water Scene.gdshader" id="1_fuqi8"]
+[ext_resource type="Texture2D" uid="uid://ql3hxv4tqv5b" path="res://tex/water-caustic-texture-overlay-water-caustic-texture-overlay-rippled-water-shadow-effect-abstract-wave-textured-background-clear-236830526.webp" id="2_keeuj"]
+[ext_resource type="Texture2D" uid="uid://dng84vxtyk4f5" path="res://tex/35104db7f61b4075fd2fb8b00c4f1b329431f045.jpeg" id="3_4es1a"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5cfed"]
+noise_type = 3
+frequency = 0.0056
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_peurp"]
+seamless = true
+noise = SubResource("FastNoiseLite_5cfed")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_fuqi8")
+shader_parameter/amp = Vector2(0.16, 0.11)
+shader_parameter/freq = Vector2(1, 1)
+shader_parameter/time_factor = Vector2(2, 3)
+shader_parameter/delta = 0.15
+shader_parameter/step_threshold = Vector2(0.9, 1)
+shader_parameter/ref_offset = -0.42
+shader_parameter/tex_scale = Vector2(1, 0.5)
+shader_parameter/scale_uv_offset = Vector2(2, 1)
+shader_parameter/panning_uv_offset = Vector2(2, 1)
+shader_parameter/str_uv_offset = 0.19
+shader_parameter/albedo_tex = ExtResource("2_keeuj")
+shader_parameter/tex_uv_offset = SubResource("NoiseTexture2D_peurp")
+shader_parameter/tex_normal = ExtResource("3_4es1a")

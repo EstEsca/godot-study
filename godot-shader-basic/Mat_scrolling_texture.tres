@@ -8,4 +8,4 @@ shader_parameter/scroll_speed = 0.1
 shader_parameter/angle_degrees = 75.0
 shader_parameter/repeat_x = 2.0
 shader_parameter/repeat_y = 2.0
-shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/tint = Color(1, 0.333333, 1, 1)
